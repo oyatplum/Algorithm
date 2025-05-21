@@ -1,13 +1,8 @@
-from itertools import combinations
-
 def solution(nums):
-    answer = 0
-    maxLen = len(set(nums))
-    numLen = len(nums)//2
+    selectNum = len(nums) // 2
+    kind = len(set(nums))
     
-    if maxLen < numLen:
-        answer = maxLen
+    if selectNum < kind:
+        return selectNum
     else:
-        answer = numLen
-    
-    return answer
+        return kind
