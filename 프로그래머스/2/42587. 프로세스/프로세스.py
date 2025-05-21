@@ -1,26 +1,18 @@
-from collections import deque
-
 def solution(priorities, location):
-    answer = 1
-    queue = deque()
-    
-    for i,j in enumerate(priorities):
-        queue.append((i,j))
-    
-    maxNum = max(queue, key=lambda x:x[1])[1]
-    
-    while queue:
-        poped = queue.popleft()
-        if poped[1] < maxNum:
-            queue.append(poped)
-            continue
-        else:
-            if poped[0] == location:
-                break
+    answer = 0
+    while priorities:
+        maxN = max(priorities)
+        if priorities[0] < maxN: #다시 뒤로
+            temp = priorities.pop(0)
+            priorities.append(temp)
+            if location == 0:
+                location = len(priorities) - 1
             else:
-                answer += 1
-                maxNum = max(queue, key=lambda x:x[1])[1]
-                continue
-        break 
-    
-    return answer
+                location -= 1
+        else: #pop
+            priorities.pop(0)
+            answer += 1
+            if location == 0:
+                return answer
+            else:
+                location -= 1
