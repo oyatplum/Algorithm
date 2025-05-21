@@ -1,12 +1,13 @@
 def solution(clothes):
     answer = 1
-    d = {}
-    
-    for name, kind in clothes:
-        if kind in d.keys():
-            d[kind] += [name]
+    dictC = dict()
+    for cloth, kind in clothes:
+        if kind in dictC.keys():
+            dictC[kind] += [cloth]
         else:
-            d[kind] = [name]
-    for kind in d:
-        answer *= len(d[kind]) + 1
+            dictC[kind] = [cloth]
+
+    for i in dictC:
+        answer *= (len(dictC[i]) + 1)
     return answer - 1
+
