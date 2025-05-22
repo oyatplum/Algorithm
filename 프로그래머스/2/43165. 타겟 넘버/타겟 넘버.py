@@ -1,17 +1,15 @@
-def solution(numbers, target):
-    answer = 0
-    bfs = [0]
+answer = 0
+def dfs(numbers, target, total, index):
+    global answer
+    if len(numbers) == index:
+        if total == target:
+            answer += 1
+        return
+    else:
+        dfs(numbers, target, total + numbers[index], index+1)
+        dfs(numbers, target, total - numbers[index], index+1)
     
-    for i in numbers:
-        temp = []
-        
-        for j in bfs:
-            temp.append(j + i)
-            temp.append(j - i)
-        bfs = temp
-        
-    for a in bfs:
-        if a == target:
-            answer += 1       
-        
+def solution(numbers, target):
+    global answer
+    dfs(numbers, target, 0, 0)
     return answer
