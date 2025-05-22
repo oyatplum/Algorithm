@@ -16,7 +16,6 @@ def solution(answers):
     maxNum = max(count)
     
     for i,j in enumerate(count):
-        if maxNum == j:
+        if j == maxNum:
             answer.append(i+1)
-
     return answer
