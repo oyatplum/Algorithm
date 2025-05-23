@@ -1,13 +1,11 @@
+from collections import defaultdict
 def solution(clothes):
-    answer = 1
-    dictC = dict()
-    for cloth, kind in clothes:
-        if kind in dictC.keys():
-            dictC[kind] += [cloth]
-        else:
-            dictC[kind] = [cloth]
-
-    for i in dictC:
-        answer *= (len(dictC[i]) + 1)
-    return answer - 1
-
+    dic = defaultdict(list)
+    
+    for cloth in clothes:
+        dic[cloth[1]] += [cloth[0]]
+    temp = 1
+    for d in dic:
+        temp *= len(dic[d]) + 1
+        
+    return temp - 1
