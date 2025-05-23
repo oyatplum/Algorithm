@@ -1,10 +1,14 @@
-from collections import Counter
+from collections import defaultdict
 def solution(participant, completion):
-    part = Counter(participant)
-    comp = Counter(completion)
+    dic = defaultdict(int)
     
-    for p in part:
-        if p in comp and part[p] == comp[p]:
-            continue
-        else:
-            return p
+    for p in participant:
+        dic[p] += 1
+    
+    for c in completion:
+        if dic[c] >= 1:
+            dic[c] -= 1
+    
+    for d in dic:
+        if dic[d] == 1:
+            return d
