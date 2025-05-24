@@ -1,16 +1,14 @@
 from collections import defaultdict
 def solution(genres, plays):
     answer = []
-    d1 = defaultdict(int)
-    #{'classic': 1450, 'pop': 3100})
-    d2 = defaultdict(list)
-    #{'classic': [(500, 0), (150, 2), (800, 3)], 'pop': [(600, 1), (2500, 4)]})
+    d1 = defaultdict(list)
+    d2 = defaultdict(int)
     
-    for i, (j,k) in enumerate(zip(genres, plays)):
-        d1[j] += k
-        d2[j] += [(k,i)]
+    for idx, (g, p) in enumerate(zip(genres, plays)):
+        d1[g] += [(idx, p)]
+        d2[g] += p
     
-    for i,j in sorted(d1.items(), key=lambda x:x[1], reverse = True):
-        for k,v in sorted(d2[i], key=lambda x:(-x[0], x[1]))[:2]:
-            answer.append(v)
+    for kind, total in sorted(d2.items(), key = lambda x:x[1], reverse = True):
+        for idx, play in sorted(d1[kind], key = lambda x:(-x[1], x[0]))[:2]:
+            answer.append(idx)
     return answer
