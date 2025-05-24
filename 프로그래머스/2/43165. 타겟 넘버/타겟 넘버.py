@@ -1,15 +1,17 @@
 answer = 0
-def dfs(numbers, target, total, index):
+def dfs(numbers, target, idx, total):
     global answer
-    if len(numbers) == index:
+    if len(numbers) == idx:
         if total == target:
             answer += 1
         return
-    else:
-        dfs(numbers, target, total + numbers[index], index+1)
-        dfs(numbers, target, total - numbers[index], index+1)
+    dfs(numbers, target, idx+1, total + numbers[idx])
+    dfs(numbers, target, idx+1, total - numbers[idx])
+    
+            
     
 def solution(numbers, target):
     global answer
+    
     dfs(numbers, target, 0, 0)
     return answer
