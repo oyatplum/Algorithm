@@ -6,12 +6,11 @@ def solution(brown, yellow):
     for i in range(1, total+1):
         if total % i == 0:
             temp.append(i)
-        else:
-            continue
     
     for row in temp:
         col = total // row
-        if (row - 2) * (col - 2) == yellow:
+        
+        if (col - 2) * (row - 2) == yellow:
             answer.append(row)
             answer.append(col)
             break
