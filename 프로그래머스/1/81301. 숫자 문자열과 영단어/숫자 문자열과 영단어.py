@@ -1,20 +1,8 @@
 def solution(s):
-    answer = ''
-    words = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven','eight', 'nine']
+    answer = s
+    words = {'zero':'0', 'one':'1', 'two':'2', 'three':'3', 'four':'4', 'five':'5', 'six':'6', 'seven':'7','eight':'8', 'nine':'9'}
     
-    temp = []
+    for key, value in words.items():
+        answer = answer.replace(key, value)
     
-    string = ''
-    for i in s:
-        if i.isdigit():
-            temp.append(i)
-            continue
-        else:
-            string += i
-            if string in words:
-                temp.append(words.index(string))
-                string = ''
-    
-    for i in temp:
-        answer += str(i)
     return int(answer)
