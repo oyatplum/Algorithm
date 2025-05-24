@@ -1,35 +1,30 @@
 from itertools import permutations
 import math
-def isPrime(target):
-    for i in range(2, int(math.sqrt(target) + 1)):
-        if target % i == 0:
+def isPrime(num):
+    for i in range(2, int(math.sqrt(num)) + 1):
+        if num % i == 0:
             return 0
     return 1
     
 def solution(numbers):
     answer = 0
-    numArr = []
-    for i in numbers:
-        numArr.append(i)
+    temp = list(map(str, numbers))
+    tempArr = set()
     
-    perSet = set()
+    for i in range(1, len(temp)+1):
+        arr = permutations(temp, i)
+        for a in arr:
+            tempArr.add(a)
     
-    for i in range(1, len(numArr)+1):
-        temp = set(permutations(numArr, i))
-        for t in temp:
-            perSet.add(t)
-    
-    resultSet = set()
-    
-    for per in perSet:
+    tempNum = set()
+    for target in tempArr:
         string = ''
-        for p in per:
-            string += p
-        resultSet.add(int(string))
+        for i in target:
+            string += i
+        tempNum.add(int(string))
     
-    for i in resultSet:
-        if i < 2:
-            continue
-        else:
-            answer += isPrime(i)
+    for num in tempNum:
+        if num >= 2:
+            answer += isPrime(num)
+        
     return answer
