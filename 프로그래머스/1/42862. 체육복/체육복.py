@@ -1,44 +1,40 @@
 def solution(n, lost, reserve):
     answer = 0
-    students = [1] * (n+1)
+    before = [1] * (n+1) #마지막에 인덱스 0 빼주기
     
-    realLost = []
-    realReserve = []
+    for l in lost:
+        before[l] = 0
     
-    for i in lost:
-        if i not in reserve:
-            realLost.append(i)
-    for i in reserve:
-        if i not in lost:
-            realReserve.append(i)
+    for r in reserve:
+        before[r] = 2
+        if r in lost: #여분있는 사람이 도난
+            before[r] = 1
             
+    del before[0]
     
-    for i in realLost:
-        students[i] = 0
-    for i in realReserve:
-        students[i] = 2
-    del students[0]
-    
-    for idx, student in enumerate(students):
-        if student == 0:
-            if idx == 0: #처음
-                if students[1] == 2: #뒤에서 빌림
-                    students[1] = 1
-                    students[0] = 1
-            elif idx == len(students) - 1: #마지막
-                if students[len(students) - 2] == 2: #앞에서 빌림
-                    students[len(students) - 1] = 1
-                    students[len(students) - 2] = 1
-            else:
-                if students[idx-1] == 2:
-                    students[idx-1] = 1
-                    students[idx] = 1
-                elif students[idx+1] == 2:
-                    students[idx+1] = 1
-                    students[idx] = 1
+    for idx, b in enumerate(before):
+        if idx == 0: #맨 앞인 경우
+            if b == 0:
+                if before[idx+1] == 2:
+                    before[idx+1] = 1
+                    before[idx] = 1
             
-    for i in students:
-        if i > 0:
+        elif idx == n-1: #맨 뒤인 경우
+            if b == 0:
+                if before[idx-1] == 2:
+                    before[idx-1] = 1
+                    before[idx] = 1
+        else:
+            if b == 0:
+                if before[idx-1] == 2:
+                    before[idx-1] = 1
+                    before[idx] = 1
+                elif before[idx+1] == 2:
+                    before[idx+1] = 1
+                    before[idx] = 1
+    
+    for i in before:
+        if i >= 1:
             answer += 1
-    
+        
     return answer
