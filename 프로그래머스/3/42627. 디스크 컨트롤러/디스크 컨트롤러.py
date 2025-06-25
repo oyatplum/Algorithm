@@ -1,22 +1,22 @@
 import heapq
-
 def solution(jobs):
     answer = 0
-    now = 0 #현재 시간
-    i = 0 #처리 개수
-    start = -1 #마지막 완료 시간
+    start = -1
+    now = 0
+    count = 0
     heap = []
     
-    while i < len(jobs):
+    while count < len(jobs):
         for job in jobs:
             if start < job[0] <= now:
                 heapq.heappush(heap, [job[1], job[0]])
+            
         if heap:
             current = heapq.heappop(heap)
             start = now
             now += current[0]
+            count += 1
             answer += now - current[1]
-            i += 1
-        else: 
+        else:
             now += 1
     return answer // len(jobs)
