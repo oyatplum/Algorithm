@@ -1,17 +1,17 @@
-answer = 0
-def dfs(numbers, target, idx, total):
-    global answer
-    if len(numbers) == idx:
-        if total == target:
-            answer += 1
-        return
-    dfs(numbers, target, idx+1, total + numbers[idx])
-    dfs(numbers, target, idx+1, total - numbers[idx])
-    
-            
-    
 def solution(numbers, target):
-    global answer
+    answer = 0
     
-    dfs(numbers, target, 0, 0)
+    def dfs(idx, sumNum, lastIdx):
+        nonlocal answer
+        if idx == lastIdx: #마지막까지 돈 경우
+            if sumNum + numbers[idx] == target:
+                answer += 1
+            elif sumNum - numbers[idx] == target:
+                answer += 1
+        else:
+            dfs(idx + 1, sumNum + numbers[idx], lastIdx)
+            dfs(idx + 1, sumNum - numbers[idx], lastIdx)
+        
+    dfs(0, 0, len(numbers) - 1)
+    
     return answer
