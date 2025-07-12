@@ -1,30 +1,33 @@
-count = 0
-flag = False
-answer = 0
-def dfs(start, word, alpha, string):
-    global count, answer
-    
-    if string == word:
-        flag = True
-        answer = count
-        return
-    
-    if len(string) == 5:
-        return
-    
-    string += start
-    count += 1
-    
-    for a in alpha:
-        dfs(a, word, alpha, string)
-
 def solution(word):
-    global answer
-    alpha = ['A', 'E', 'I', 'O', 'U']
-    string = ''
+    answer = 0
+    alphaList = ['A', 'E', 'I', 'O', 'U']
+    flag = 0
     
-    for a in alpha:
-        dfs(a, word, alpha, string)
-        if flag:
+    def dfs(alpha, cur):
+        cur += alpha
+        nonlocal answer
+        nonlocal flag
+        
+        if flag == 1:
+            return
+        
+        answer += 1
+        
+        if cur == word:
+            flag = 1
+            return
+        
+        if len(cur) == 5:
+            return
+        
+        for alpha in alphaList:
+            dfs(alpha, cur)
+        
+    
+    for alpha in alphaList:
+        if flag == 0:
+            dfs(alpha, '')
+        else:
             break
+    
     return answer
