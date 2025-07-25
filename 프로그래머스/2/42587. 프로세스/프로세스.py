@@ -1,29 +1,26 @@
 from collections import deque
-
 def solution(priorities, location):
     answer = 0
-    temp = deque()
-    for idx, p in enumerate(priorities): #location 비교 위해
-        temp.append([idx, p])
+    q = deque()
     
-    while True:
-        maxNum = 0
-        for target in temp: # 가장 큰 수 구해놓기
-            if maxNum < target[1]:
-                maxNum = target[1]
-        
-        copied = temp.copy()
-        
-        for target in copied:
-            if target[1] < maxNum:
-                poped = temp.popleft()
-                temp.append(poped)
+    for idx, p in enumerate(priorities):
+        q.append((idx, p))
+    
+    maxNum = max(q, key = lambda x:x[1])[1]
+    
+    while q:
+        popedIdx, popedVal = q.popleft()
+        if popedIdx != location:
+            if popedVal != maxNum:
+                q.append((popedIdx, popedVal))
             else:
-                poped = temp.popleft()
+                maxNum = max(q, key = lambda x:x[1])[1]
                 answer += 1
-                if poped[0] == location:
-                    return answer
-                else:
-                    break         
+        else:
+            if popedVal != maxNum:
+                q.append((popedIdx, popedVal))
+            else:
+                answer += 1
+                break
     
     return answer
