@@ -1,8 +1,8 @@
 def solution(nums):
-    selectNum = len(nums) // 2
-    kind = len(set(nums))
-    
-    if selectNum < kind:
-        return selectNum
+    div = len(nums) // 2
+    setNum = len(set(nums))
+
+    if div < setNum:
+        return div
     else:
-        return kind
+        return setNum
