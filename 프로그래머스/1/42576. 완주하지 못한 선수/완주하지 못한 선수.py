@@ -1,14 +1,12 @@
-from collections import defaultdict
+from collections import Counter
 def solution(participant, completion):
-    dic = defaultdict(int)
+    answer = ''
+    p = Counter(participant)
+    c = Counter(completion)
+
+    diff = p - c
     
-    for p in participant:
-        dic[p] += 1
-    
-    for c in completion:
-        if dic[c] >= 1:
-            dic[c] -= 1
-    
-    for d in dic:
-        if dic[d] == 1:
-            return d
+    for i in diff:
+        answer = i
+        
+    return answer
