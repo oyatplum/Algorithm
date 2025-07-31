@@ -1,11 +1,15 @@
 from collections import defaultdict
 def solution(clothes):
-    dic = defaultdict(list)
+    answer = 1
+    d = defaultdict(list)
     
     for cloth in clothes:
-        dic[cloth[1]] += [cloth[0]]
-    temp = 1
-    for d in dic:
-        temp *= len(dic[d]) + 1
-        
-    return temp - 1
+        d[cloth[1]].append(cloth[0])
+
+    if len(d) > 1:
+        for c in d:
+            answer *= (len(d[c]) + 1)
+        return answer - 1
+    else:
+        for c in d:
+            return len(d[c])
