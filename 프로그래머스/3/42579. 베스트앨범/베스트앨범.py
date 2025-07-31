@@ -11,4 +11,5 @@ def solution(genres, plays):
     for kind, total in sorted(d2.items(), key = lambda x:x[1], reverse = True):
         for idx, play in sorted(d1[kind], key = lambda x:(-x[1], x[0]))[:2]:
             answer.append(idx)
+    
     return answer
